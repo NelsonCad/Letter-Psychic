@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+</head>
+
+<body>
+
+
+    <script>
+        // set global variables
+
+        var wins = 0;
+        var losses = 0;
+        var userGuesses = [];
+
+
+        // generates the alphabet into an array
+
+        function generateAlphabet() {
+            var alphabet = [];
+            for (var i = 97; i < 123; i++) {
+                alphabet.push(String.fromCharCode(i));
+                console.log(alphabet);
+            }
+            return alphabet;
+        }
+        generateAlphabet();
+        console.log(generateAlphabet);
+
+        document.onkeyup = function (event) {
+            var userGuess = event.key;
+            if (userGuess.includes()) {
+                userGuesses.push(String.fromCharCode(event.key));
+                
+                console.log("that was good");
+            } else {
+                
+                console.log("wrong");
+                userGuesses.push(String.fromCharCode(event.key));
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>
