@@ -20,7 +20,7 @@
     <p id="triesleft"></p>
     <p id="guesses"></p>
 
-    <h6 id="message"></h6>
+    <h4 id="message"></h4>
 
 
     <script>
@@ -30,7 +30,7 @@
         var losses = 0;
         let userGuesses = [];
         let trysLeft = 7;
-        let Message = "";
+        
 
         // generates the alphabet into an array
         const alphabet = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m"];
@@ -45,7 +45,7 @@
         };
 
         let Chosen = cpu.thought(); //sets the chosen letter for the game
-        console.log("cpu is thinking of " + Chosen);
+        
 
         // functions displaying current stats
         //===================================================================================================
@@ -69,10 +69,10 @@
         }
         updateGuesses(); // initializes current tries left on page (7)
 
-        function updateMessage(){
-            document.querySelector("#message").innerHTML = "" + Message;
-        }
-        updateMessage();
+        let targetLine = document.getElementById("message");
+        targetLine.textContent = " ";
+        
+
         //===================================================================================================
 
         document.onkeyup = function (e) {
@@ -80,15 +80,15 @@
             if (alphabet.includes(userGuess)) { // checks if key pressed is in the alphabet
 
                 if (userGuesses.includes(userGuess)) { // checks to see if key pressed has already been pressed, if so does nothing
-                    Message = "you have already chosen that letter";
-                    updateMessage();
+                    
+                    targetLine.textContent = "you already chose that letter, choose a different one";
                     
                     
 
                 } else if (userGuess == Chosen) { // checks to see if the guess is the same as the cpu thought
 
-                    message = "you chose the correct letter!";
-                    updateMessage();
+                    targetLine.textContent = "You chose the correct letter!";
+                    
                     Chosen = cpu.thought(); // replaces the value of chosen with a different letter
                     userGuesses = []; // resets userGuesses
                     updateGuesses();
@@ -96,14 +96,13 @@
                     updateWins();
                     trysLeft = 7;
                     updateTriesLeft();                  
-                    console.log("cpu is thinking of " + Chosen);
+                    
 
 
 
                 } else if (userGuesses.length !== 6) {
 
-                    message = "good job choosing the incorrect letter";
-                    updateMessage();
+                    
                     userGuesses.push(userGuess); // key guessed is added to userGuesses
                     trysLeft--;// updates how tries are left
                     updateTriesLeft(); 
@@ -112,7 +111,7 @@
 
                 } else {
 
-                    console.log("you are no psychic");
+                    targetLine.textContent = "you are no psychic";
                     losses++;
                     updateLosses();
                     userGuesses = [];
@@ -120,13 +119,13 @@
                     Chosen = cpu.thought();
                     trysLeft = 7;
                     updateTriesLeft();
-                    console.log("cpu is thinking of " + Chosen);
+                    
 
                 }
 
             } else {
 
-                console.log("choose a letter");
+                targetLine.textContent = "Choose an actual letter"
                 return;
 
             };
