@@ -11,8 +11,14 @@
 
 <body>
 
+    <h1>guess what i am thinking!</h1>
 
+    <h4>choose a letter of the alphabet.</h4>
 
+    <p id="wins"></p>
+    <p id="losses"></p>
+    <p id="triesleft"></p>
+    <p id="guesses"></p>
 
 
     <script>
@@ -21,24 +27,25 @@
         var wins = 0;
         var losses = 0;
         let userGuesses = [];
+        let trysLeft = 7;
 
         // generates the alphabet into an array
         const alphabet = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m"];
 
         let cpu = {
 
-            thought: function () {
+            thought: function () { // function that chooses a random letter
                 let chosen = alphabet[Math.floor(Math.random() * alphabet.length)];
                 return chosen;
             }
-            
+
         };
 
-        let Chosen = cpu.thought();
+        let Chosen = cpu.thought(); //sets the chosen letter for the game
         console.log("cpu is thinking of " + Chosen);
+
         
-        
-        
+
 
 
         document.onkeyup = function (e) {
@@ -49,7 +56,7 @@
                     console.log("you already chose that letter");
                     console.log(userGuesses);
 
-                }else if (userGuess == Chosen){ // checks to see if the guess is the same as the cpu thought
+                } else if (userGuess == Chosen) { // checks to see if the guess is the same as the cpu thought
 
                     console.log("you chose the correct letter!");
                     Chosen = cpu.thought(); // replaces the value of chosen with a different letter
@@ -57,14 +64,25 @@
                     wins++;
                     console.log("you have won " + wins + " times");
                     console.log("cpu is thinking of " + Chosen);
-                    
 
 
-                }else{
+
+                } else if (userGuesses.length !== 6) {
 
                     console.log("good job choosing the incorrect letter");
                     userGuesses.push(userGuess); // key guessed is added to userGuesses
                     console.log(userGuesses);
+                    trysLeft--;
+                    console.log(trysLeft);
+
+                } else {
+
+                    console.log("you are no psychic");
+                    losses++;
+                    userGuesses = [];
+                    Chosen = cpu.thought();
+                    trysLeft = 7;
+                    console.log("cpu is thinking of " + Chosen);
 
 
                 }
