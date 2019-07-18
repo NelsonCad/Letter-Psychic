@@ -37,6 +37,8 @@
         let Chosen = cpu.thought();
         console.log("cpu is thinking of " + Chosen);
         
+        
+        
 
 
         document.onkeyup = function (e) {
@@ -47,15 +49,18 @@
                     console.log("you already chose that letter");
                     console.log(userGuesses);
 
-                }else if (userGuess == Chosen){ 
+                }else if (userGuess == Chosen){ // checks to see if the guess is the same as the cpu thought
 
                     console.log("you chose the correct letter!");
-                    cpu.thought();
-                    console.log("cpu is thinking of " + Chosen)
+                    Chosen = cpu.thought(); // replaces the value of chosen with a different letter
+                    userGuesses = []; // resets userGuesses
+                    wins++;
+                    console.log("you have won " + wins + " times");
+                    console.log("cpu is thinking of " + Chosen);
                     
 
 
-                } else {
+                }else{
 
                     console.log("good job choosing the incorrect letter");
                     userGuesses.push(userGuess); // key guessed is added to userGuesses
