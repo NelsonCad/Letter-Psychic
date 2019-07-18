@@ -11,7 +11,7 @@
 
 <body>
 
-    <h1>guess what i am thinking!</h1>
+    <h1>Guess what i am thinking!</h1>
 
     <h4>choose a letter of the alphabet.</h4>
 
@@ -19,6 +19,8 @@
     <p id="losses"></p>
     <p id="triesleft"></p>
     <p id="guesses"></p>
+
+    <h6 id="message"></h6>
 
 
     <script>
@@ -28,6 +30,7 @@
         var losses = 0;
         let userGuesses = [];
         let trysLeft = 7;
+        let Message = "";
 
         // generates the alphabet into an array
         const alphabet = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m"];
@@ -44,51 +47,84 @@
         let Chosen = cpu.thought(); //sets the chosen letter for the game
         console.log("cpu is thinking of " + Chosen);
 
+        // functions displaying current stats
+        //===================================================================================================
+        function updateWins() { // function used to display current wins
+            document.querySelector("#wins").innerHTML = "Wins: " + wins;
+        }
+        updateWins(); // initializes current wins on page (0)
         
+        function updateLosses(){
+            document.querySelector("#losses").innerHTML = "Losses: " + losses;
+        }
+        updateLosses(); // initializes current losses on page (0)
 
+        function updateTriesLeft(){
+            document.querySelector("#triesleft").innerHTML = "Tries Left: " + trysLeft;
+        }
+        updateTriesLeft(); // initializes current tries left on page (7)
 
+        function updateGuesses(){
+            document.querySelector("#guesses").innerHTML = "you have guessed: " + userGuesses;
+        }
+        updateGuesses(); // initializes current tries left on page (7)
+
+        function updateMessage(){
+            document.querySelector("#message").innerHTML = "" + Message;
+        }
+        updateMessage();
+        //===================================================================================================
 
         document.onkeyup = function (e) {
             var userGuess = e.key;
             if (alphabet.includes(userGuess)) { // checks if key pressed is in the alphabet
 
                 if (userGuesses.includes(userGuess)) { // checks to see if key pressed has already been pressed, if so does nothing
-                    console.log("you already chose that letter");
-                    console.log(userGuesses);
+                    Message = "you have already chosen that letter";
+                    updateMessage();
+                    
+                    
 
                 } else if (userGuess == Chosen) { // checks to see if the guess is the same as the cpu thought
 
-                    console.log("you chose the correct letter!");
+                    message = "you chose the correct letter!";
+                    updateMessage();
                     Chosen = cpu.thought(); // replaces the value of chosen with a different letter
                     userGuesses = []; // resets userGuesses
-                    wins++;
-                    console.log("you have won " + wins + " times");
+                    updateGuesses();
+                    wins++;//updates wins on user page
+                    updateWins();
+                    trysLeft = 7;
+                    updateTriesLeft();                  
                     console.log("cpu is thinking of " + Chosen);
 
 
 
                 } else if (userGuesses.length !== 6) {
 
-                    console.log("good job choosing the incorrect letter");
+                    message = "good job choosing the incorrect letter";
+                    updateMessage();
                     userGuesses.push(userGuess); // key guessed is added to userGuesses
-                    console.log(userGuesses);
-                    trysLeft--;
-                    console.log(trysLeft);
+                    trysLeft--;// updates how tries are left
+                    updateTriesLeft(); 
+                    updateGuesses(); //updates which guesses have been made
+                    
 
                 } else {
 
                     console.log("you are no psychic");
                     losses++;
+                    updateLosses();
                     userGuesses = [];
+                    updateGuesses();
                     Chosen = cpu.thought();
                     trysLeft = 7;
+                    updateTriesLeft();
                     console.log("cpu is thinking of " + Chosen);
-
 
                 }
 
             } else {
-
 
                 console.log("choose a letter");
                 return;
