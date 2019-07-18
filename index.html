@@ -11,41 +11,41 @@
 
 <body>
 
+    
+
+
 
     <script>
         // set global variables
 
         var wins = 0;
         var losses = 0;
-        var userGuesses = [];
-
+        let userGuesses = [];
 
         // generates the alphabet into an array
+        
+        const alphabet = ["q","w","e","r","t","y","u","i","o","p","a","s","d","f","g","h","j","k","l","z","x","c","v","b","n","m"]
 
-        function generateAlphabet() {
-            var alphabet = [];
-            for (var i = 97; i < 123; i++) {
-                alphabet.push(String.fromCharCode(i));
-                console.log(alphabet);
-            }
-            return alphabet;
-        }
-        generateAlphabet();
-        console.log(generateAlphabet);
-
-        document.onkeyup = function (event) {
-            var userGuess = event.key;
-            if (userGuess.includes()) {
-                userGuesses.push(String.fromCharCode(event.key));
+        document.onkeyup = function (e) {
+            var userGuess = e.key;
+            if (alphabet.includes(userGuess)) { // checks if key pressed is in the alphabet
                 
+                if (userGuesses.includes(userGuess)){ // checks to see if key pressed has already been                                           pressed, if so does nothing
+                    return;
+
+                }
+
                 console.log("that was good");
-            } else {
-                
-                console.log("wrong");
-                userGuesses.push(String.fromCharCode(event.key));
-            }
-        }
+                userGuesses.push(userGuess);
+                console.log(userGuesses);
 
+            } else {
+             
+                console.log("choose a letter");
+                return;
+                
+            };
+        };
 
 
 
